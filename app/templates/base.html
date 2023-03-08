@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    {% if title %}
+    <title>{{ title }} - A Velha Biblioteca</title>
+    {% else %}
+    <title>Bem Vindo A Velha Biblioteca</title>
+    {% endif %}
+
+</head>
+
+<body>
+    <div> Velha Biblioteca:
+        <a href="{{ url_for('index') }}">Início</a>
+        {% if current_user.is_anonymous %}
+        <a href="{{ url_for('login') }}">Entrar</a>
+        {% else %}
+        <a href="{{ url_for('logout') }}"></a>
+        {% endif %}
+    </div>
+    <hr>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul>
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+    {% block content %}{% endblock %}
+</body>
+
+
+</html>
