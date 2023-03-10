@@ -4,6 +4,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from app import db, login
 
 
+# Verficiando o usuário está logado para ver as publicações.
 @login.user_loader
 def load_user():
     return User.query.get(int(id))
