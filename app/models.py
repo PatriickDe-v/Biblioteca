@@ -12,8 +12,8 @@ class User(db.Model, UserMixin):
     password_hash = db.Column(db.String(128))
 
     def __repr__(self): 
-        return f'<User {self.username}>' 
-    
+        return f'<User {self.username}>'
+  
     def set_password(self, password):
         self.password_hash = generate_password_hash(password) #Cria o hash de senha
 
@@ -25,10 +25,14 @@ def load_user():
     return User.query.get(int(id))
 
 # Criando o modelo de tabela dos livros
-class Books(db.Model):
+class Books(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(54), index=True, unique=True)
+    author = db.Column(db.String(54), index=True)
+    category = db.Column(db.String(54), index=True)
+    pages = db.Column(db.Float())
     description = db.Column(db.String(140))
+    publishCompany = db.Column(db.String(54))
 
     def __repr__(self): 
         return f'<Book {self.name}>'

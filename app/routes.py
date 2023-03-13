@@ -3,8 +3,8 @@ from flask_login import current_user, login_required, login_user, logout_user
 from werkzeug.urls import url_parse
 
 from app import app, db, login
-from app.forms import LoginForm, RegistrationForm
-from app.models import User
+from app.forms import LoginForm, RegistrationBookForm, RegistrationForm
+from app.models import Books, User
 
 
 @app.route('/')
@@ -62,7 +62,17 @@ def register():
         return redirect(url_for('login'))
     return render_template('register.html', title='cadastro', form=form)
 
-
-
-
+@app.route('/Adicionar', methods=['GET', 'POST'])
+@login_required
+def registerBook():
+   form = RegistrationBookForm()
+   if form.validate_on_submit(): 
+       book = Books(name=form.name.data, author=form.author.data, category=form.category.data, pages=form.pages.data, \
+                    description=form.description.data, publishCompany=form.publishCompany.data)
+       db.session.add(book)
+       db.session.commit()
+       flash('Livro registrado com sucesso!')
+       return redirect(url_for('index'))
+   return render_template('registerBook.html', title='Adicionar Novo Livro', form=form)
+       
 

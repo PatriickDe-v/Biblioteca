@@ -13,10 +13,11 @@
 <body>
     <div> Velha Biblioteca:
         <a href="{{ url_for('index') }}">Início</a>
+        <a href="{{ url_for('registerBook') }}">Adicionar Livros</a>
         {% if current_user.is_anonymous %}
         <a href="{{ url_for('login') }}">Entrar</a>
         {% else %}
-        <a href="{{ url_for('logout') }}"></a>
+        <a href="{{ url_for('logout') }}">Sair</a>
         {% endif %}
     </div>
     <hr>
